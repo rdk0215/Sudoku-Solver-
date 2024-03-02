@@ -1,80 +1,94 @@
-# Sudoku-Solver
-Project for solving Sudoku
-What is Sudoku?
-Sudoku is a logic-based combinatorial number-placement puzzle. In classic Sudoku, the objective is to fill a 9x9 grid with digits so that each line, column and each of the 9 3x3 subgrids that compose the grid contain all of the digits from 1 to 9. The puzzle starts with a partially completed grid and it has a unique solution.
+# SudokuSolver
+  
+### What is Sudoku?
 
-Why did I create a Sudoku Solver?
-I have always been interested in logic puzzles and mathematical games and as I was playing sudoku with my girlfriend, I wanted to learn more about the strategies which can be used to solve more and more grids while being faster and I realized that it could be a good opportunity to end up implementing a solver using my favorite programming languages.
+Sudoku is a logic-based combinatorial number-placement puzzle. In classic Sudoku, the objective is to fill a 9x9 grid with digits so that each line, column and each of the 9 3x3 subgrids that compose the grid contain all of the digits from 1 to 9. The puzzle starts with a partially completed grid and it has a unique solution. 
 
-How does the solver work?
+### Why did I create a Sudoku Solver?
+
+I have always been interested in logic puzzles and mathematical games and as I was playing sudoku with my girlfriend, I wanted to learn more about the strategies which can be used to solve more and more grids while being faster and I realized that it could be a good opportunity to end up implementing a solver using my favorite programming languages. 
+
+### How does the solver work?
+
 At first, I am using an algorithm based on a few sudoku strategies which fill as many squares as possible, using only notes and logic. The algorithm works as following:
 
-Add notes at the beginning (i. e: mark all the possible squares with all the possible digits according to the rules of sudoku)
+* Add notes at the beginning (i. e: mark all the possible squares with all the possible digits according to the rules of sudoku)
+* While the sudoku is not completed, do the following:
+    1. Whenever one of these situations occurs, fill the square with the number which fits the description
+        1. If in a 3x3 grid there is only one position with a certain number, fill it
+        2. If in a 1x9 grid there is only one position with a certain number, fill it
+        3. If in a 9x1 grid there is only one position with a certain number, fill it
+    2. Notes reduction
+        1. After completing each square, remove all the notes with that value on the 3x3, 1x9 and 9x1 grids 
+        2. If in a 3x3 grid there is only one row/column with a certain number, remove it from the other 3x3 from the same row/column
+        3. If in a 3x3, 1x9, 9x1 grid there is a case where the size of a set is equal to the number of empty slots, remove the numbers from the other slots from 3x3 and 1x9/9x1 grids, depending on the case
+        4. If in a 3x3, 1x9, 9x1 grid there is a case where the size of a set is equal to the number of empty slots the numbers show up, remove the numbers from the other slots from 3x3 and 1x9/9x1 grids, depending on the case
 
-While the sudoku is not completed, do the following:
 
-Whenever one of these situations occurs, fill the square with the number which fits the description
-If in a 3x3 grid there is only one position with a certain number, fill it
-If in a 1x9 grid there is only one position with a certain number, fill it
-If in a 9x1 grid there is only one position with a certain number, fill it
-Notes reduction
-After completing each square, remove all the notes with that value on the 3x3, 1x9 and 9x1 grids
-If in a 3x3 grid there is only one row/column with a certain number, remove it from the other 3x3 from the same row/column
-If in a 3x3, 1x9, 9x1 grid there is a case where the size of a set is equal to the number of empty slots, remove the numbers from the other slots from 3x3 and 1x9/9x1 grids, depending on the case
-If in a 3x3, 1x9, 9x1 grid there is a case where the size of a set is equal to the number of empty slots the numbers show up, remove the numbers from the other slots from 3x3 and 1x9/9x1 grids, depending on the case
-The algorithm will keep running as long as there has been some modification done during the previous step (either a new square gets solved or some notes have been removed)
+* The algorithm will keep running as long as there has been some modification done during the previous step (either a new square gets solved or some notes have been removed)
 
-Then, in case the grid has not been filled completely, I am going to use the remaining notes in order to run a simple brute force generator until it finds the solution of the sudoku algorithm. Because a large part of the sudoku has been filled already using the logic and the notes, the brute force generator will run really fast and the solution will be found in a matter of milliseconds.
+Then, in case the grid has not been filled completely, I am going to use the remaining notes in order to run a simple brute force generator until it finds the solution of the sudoku algorithm. Because a large part of the sudoku has been filled already using the logic and the notes, the brute force generator will run really fast and the solution will be found in a matter of milliseconds. 
 
-Implementing the solver in C++ and Python
-The algorithm has been firstly implemented in C++, which is by far faster than Python and this allowed me to test the performance of the program in a more proper manner. After implementing it in C++, I proceeded to translate it in Python, and while for the grids which can be solved using only logic and notes it is doing rather well, it is struggling with the ones which require brute force, because Python is well known for its bad performance when it comes to recursive algorithms.
+### Implementing the solver in C++ and Python
+    
+The algorithm has been firstly implemented in C++, which is by far faster than Python and this allowed me to test the performance of the program in a more proper manner. After implementing it in C++, I proceeded to translate it in Python, and while for the grids which can be solved using only logic and notes it is doing rather well, it is struggling with the ones which require brute force, because Python is well known for its bad performance when it comes to recursive algorithms. 
 
-Data regarding the performance of the Sudoku solver in the context of the three datasets I used
-In order to test my program’s performance, I used three datasets, using 1 million grids from each of them.
+### Data regarding the performance of the Sudoku solver in the context of the three datasets I used
 
-https://www.kaggle.com/radcliffe/3-million-sudoku-puzzles-with-ratings
-https://www.kaggle.com/bryanpark/sudoku
-https://www.kaggle.com/rohanrao/sudoku
+In order to test my program’s performance, I used three datasets, using 1 million grids from each of them. 
+
+1. https://www.kaggle.com/radcliffe/3-million-sudoku-puzzles-with-ratings
+2. https://www.kaggle.com/bryanpark/sudoku
+3. https://www.kaggle.com/rohanrao/sudoku
+
 The input for each of the datasets is available here: https://drive.google.com/drive/folders/13w9UBtqPJ4czkSe5N5eQL7L9LZYRf6-l?usp=sharing
 
 The results for each of the datasets, assuming the grids were added in a random order
 
-No. of grids	set 1	set 2	set 3
-100	0.585s	0.176s	0.266s
-500	2.997s	0.876s	1.372s
-1000	6.053s	1.736s	2.75s
-2000	11.916s	3.457s	5.495s
-4000	23.587s	6.916s	10.899s
-5000	29.508s	8.641s	13.644s
-8000	46.93s	13.8s	21.915s
-10000	58.516s	17.249s	27.351s
-20000	117.202s	34.558s	54.229s
-40000	233.799s	69.073s	109.298s
-50000	292.041s	86.489s	136.66s
-100000	583.539s	172.958s	272.869s
-200000	1166.14s	345.964s	544.796s
-400000	2330.89s	698.793s	1090.5s
-500000	2913.3s	871.366s	1364.44s
-800000	4659.17s	1394.55s	2187.0s
-1000000	5823.8s	1745.38s	2736.72s
+| No. of grids  | set 1 | set 2 | set 3 |
+|     :---:     |     :---:      |     :---:      |     :---:      |
+|100 | 0.585s| 0.176s| 0.266s |
+|500 | 2.997s| 0.876s| 1.372s|
+| 1000| 6.053s| 1.736s| 2.75s|
+|2000 | 11.916s| 3.457s| 5.495s|
+|4000 |23.587s | 6.916s| 10.899s|
+|5000 | 29.508s| 8.641s| 13.644s|
+| 8000| 46.93s| 13.8s| 21.915s|
+|10000 | 58.516s| 17.249s| 27.351s|
+|20000 |117.202s |34.558s |54.229s |
+| 40000| 233.799s| 69.073s| 109.298s|
+|50000 |292.041s | 86.489s| 136.66s|
+| 100000|583.539s |172.958s |272.869s |
+|200000 |1166.14s |345.964s |544.796s |
+| 400000| 2330.89s|698.793s |1090.5s |
+|500000 |2913.3s |871.366s |1364.44s |
+|800000 |4659.17s |1394.55s |2187.0s |
+|1000000 |5823.8s |1745.38s | 2736.72s|
+
 Since the first dataset has more details regarding the difficulty levels of each grid, I decided to also test the performance of my algorithm against the most difficult 100000 grids. I have sorted the data in decreasing order of difficulty so that on each row, we will see the difficulty level
 
-No. of grids	Set 1
-100	1.022s
-500	5.331s
-1000	10.133s
-2000	19.408s
-4000	36.588s
-5000	45.443s
-8000	70.233s
-10000	86.341s
-20000	163.586s
-40000	309.59s
-50000	381.352s
-100000	730.243s
-As the number of grids increases, the ratio between the time required for a random order of grids and the set of hardest grids decreases, because more and more easier grids will also be featured in the dataset. It is worth noting that for the hardest 100 grids, the program needs around 1.022s, which suggests a speed of approximately 100 grids per second for the hardest grids.
+|No. of grids |Set 1 | 
+|     :---:     |     :---:      |
+|100 | 1.022s|
+| 500| 5.331s|
+|1000 | 10.133s|
+|2000 |19.408s | 
+|4000 |36.588s |
+|5000 | 45.443s|
+|8000 | 70.233s|
+|10000 |86.341s |
+|20000 | 163.586s|
+| 40000|309.59s | 
+| 50000| 381.352s|
+|100000 |730.243s |
 
-Conclusions
-On average, my sudoku solver algorithm is able to do ~291.03 grids per second, which means around ~0.00343 seconds for each grid on average
-The first set is the one which contains the hardest grids, followed by the third one and followed by the second one
-It is likely that the speed of the algorithm can be improved by optimizing the brute force part, by starting with a certain square with only two hints or by dealing with notes removal while implementing the brute force part as well.
+As the number of grids increases, the ratio between the time required for a random order of grids and the set of hardest grids decreases, because more and more easier grids will also be featured in the dataset. It is worth noting that for the hardest 100 grids, the program needs around 1.022s, which suggests a speed of approximately 100 grids per second for the hardest grids. 
+
+### Conclusions
+
+1. On average, my sudoku solver algorithm is able to do ~291.03 grids per second, which means around ~0.00343 seconds for each grid on average
+2. The first set is the one which contains the hardest grids, followed by the third one and followed by the second one
+3. It is likely that the speed of the algorithm can be improved by optimizing the brute force part, by starting with a certain square with only two hints or by dealing with notes removal while implementing the brute force part as well.
+
+
+
