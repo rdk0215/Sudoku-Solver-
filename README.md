@@ -6,13 +6,13 @@ Sudoku is a logic-based combinatorial number-placement puzzle. In classic Sudoku
 
 ### Why did I create a Sudoku Solver?
 
- ------------------ 
+I was playing Sudoku, I wanted to learn more about the strategies which can be used to solve more and more grids while being faster and I realized that it could be a good opportunity to end up implementing a solver using my favorite programming language.
 
 ### How does the solver work?
 
-At first, I am using an algorithm based on a few sudoku strategies which fill as many squares as possible, using only notes and logic. The algorithm works as following:
+The algorithm works as following:
 
-* Add notes at the beginning (i. e: mark all the possible squares with all the possible digits according to the rules of sudoku)
+* Add notes at the beginning (i.e: mark all the possible squares with all the possible digits according to the rules of sudoku)
 * While the sudoku is not completed, do the following:
     1. Whenever one of these situations occurs, fill the square with the number which fits the description
         1. If in a 3x3 grid there is only one position with a certain number, fill it
