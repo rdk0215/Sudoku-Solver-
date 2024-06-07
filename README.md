@@ -29,9 +29,9 @@ The algorithm works as following:
 
 Then, in case the grid has not been filled completely, I am going to use the remaining notes in order to run a simple brute force generator until it finds the solution of the sudoku algorithm. Because a large part of the sudoku has been filled already using the logic and the notes, the brute force generator will run really fast and the solution will be found in a matter of milliseconds. 
 
-### Implementing the solver in C++ and Python
+### Implementing the solver in C++ 
     
-The algorithm has been firstly implemented in C++, which is by far faster than Python and this allowed me to test the performance of the program in a more proper manner. After implementing it in C++, I proceeded to translate it in Python, and while for the grids which can be solved using only logic and notes it is doing rather well, it is struggling with the ones which require brute force, because Python is well known for its bad performance when it comes to recursive algorithms. 
+The algorithm has been implemented in C++, which is by far faster than Python and this allowed me to test the performance of the program in a more proper manner.
 
 ### Data regarding the performance of the Sudoku solver in the context of the three datasets I used
 
